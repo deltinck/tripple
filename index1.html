@@ -5,117 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SageCare</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+        /* Full screen header */
         header {
-            background-color: #4CAF50;
-            padding: 20px;
             text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d), url('elderly-image.jpg') no-repeat center center/cover;
             color: white;
+            border-bottom: 2px solid #ccc;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            height: 90vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        nav {
-            background-color: #333;
-            padding: 15px;
-            text-align: center;
-        }
-        nav a {
+
+        header h1 {
+            font-size: 3em;
             color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #f1f1f1;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        header h2 {
             font-size: 1.5em;
-            margin: 0 20px;
-            text-decoration: none;
-            text-transform: uppercase;
+            margin-top: 20px;
         }
-        nav a:hover {
-            background-color: #575757;
-            padding: 10px;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        h2 {
-            font-size: 2em;
-        }
-        p {
-            font-size: 1.3em;
-            line-height: 1.6;
-        }
-        footer {
-            background-color: #333;
+
+        header .cta-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #007BFF;
             color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .button {
-            font-size: 1.5em;
-            padding: 15px 30px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
             text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s;
         }
-        .button:hover {
-            background-color: #45a049;
+
+        header .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            .cta-button {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>SageCare</h1>
-    <p>"Your wisdom and kindness inspire us all to live life with grace and strength."
-    </p>
-</header>
-
-<nav>
-    <a href="#health">Health</a>
-    <a href="#care">Care Services</a>
-    <a href="#community">Community</a>
-    <a href="#contact">Contact</a>
-</nav>
-
-<main>
-    <section id="health">
-        <h2>Health & Wellness</h2>
-        <p>Find useful health tips, healthcare providers, and wellness resources designed for elderly individuals. Learn how to stay healthy and active in your golden years!</p>
-        <a href="https://www.healthinaging.org" class="button">Explore Health Tips</a>
-    </section>
-
-    <section id="care">
-        <h2>Care Services</h2>
-        <p>Discover senior care services including home care, assisted living, and support for caregivers. We help you find the right resources for your needs.</p>
-        <a href="https://www.agingcare.com" class="button">Find Care Services</a>
-    </section>
-
-    <section id="community">
-        <h2>Community Support</h2>
-        <p>Connect with others in your community. Access social groups, local events, and peer support programs for seniors.</p>
-        <a href="https://www.seniornet.org" class="button">Join the Community</a>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>If you need assistance or have questions, we're here to help. Reach out to our support team at any time.</p>
-        <a href="mailto:support@example.com" class="button">Contact Support</a>
-    </section>
-</main>
-
-<footer>
-    <p>&copy; 2025 Elderly Assistance Portal. All rights reserved.</p>
-</footer>
+    <header>
+        <h1>SageCare</h1>
+        <p>"Your wisdom and kindness inspire us all to live life with grace and strength."</p>
+        <h2>Empowering lives with compassion and care</h2>
+        <p>Join us in our mission to support and care for the community. Together, we can make a difference.</p>
+        <a href="second.html" class="cta-button">Get Involved</a>
+    </header>
 
 </body>
 </html>
