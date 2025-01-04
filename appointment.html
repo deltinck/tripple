@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Confirmation Dialog */
+        .confirmation-dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            width: 400px;
+            text-align: center;
+        }
+
+        .confirmation-dialog h3 {
+            color: #333;
+        }
+
+        .confirmation-dialog p {
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .confirmation-dialog button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .confirmation-dialog button.cancel {
+            background-color: #f44336;
+        }
+
+        /* Overlay for Confirmation Dialog */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        /* Success Dialog Box */
+        .dialog-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 1s forwards, bounce 0.6s ease-in-out 1s forwards;
+        }
+
+        .dialog-box h3 {
+            color: #4CAF50;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .dialog-box p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .dialog-box button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Book a Doctor's Appointment</h1>
+
+        <!-- Appointment Form -->
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="patientName">Full Name:</label>
+                <input type="text" id="patientName" name="patientName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="patientEmail">Email:</label>
+                <input type="email" id="patientEmail" name="patientEmail" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="doctor">Choose Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">Select a doctor</option>
+                    <option value="Dr. John Doe">Dr. John Doe - Cardiologist</option>
+                    <option value="Dr. Emily Smith">Dr. Emily Smith - Dermatologist</option>
+                    <option value="Dr. Mark Lee">Dr. Mark Lee - Orthopedic</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Consultation Type:</label>
+                <label><input type="radio" name="consultationType" value="In-Person" checked> In-Person</label>
+                <label><input type="radio" name="consultationType" value="Online"> Online</label>
+            </div>
+
+            <div class="form-group">
+                <label for="appointmentDate">Appointment Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="appointmentTime">Appointment Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Appointment:</label>
+                <textarea id="reason" name="reason" rows="4" placeholder="Enter reason for appointment" required></textarea>
+            </div>
+
+            <button type="button" id="bookAppointmentButton">Book Appointment</button>
+            <div class="loading-spinner" id="loadingSpinner"></div>
+        </form>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="overlay" id="overlay"></div>
+    <div class="confirmation-dialog" id="confirmationDialog">
+        <h3>Confirm Appointment</h3>
+        <p>Are you sure you want to book the appointment with <span id="confirmDoctorName"></span> on <span id="confirmDate"></span> at <span id="confirmTime"></span>?</p>
+        <button id="confirmButton">Confirm</button>
+        <button class="cancel" id="cancelButton">Cancel</button>
+    </div>
+
+    <!-- Success Dialog Box -->
+    <div class="dialog-box" id="dialogBox">
+        <h3>Appointment Booked!</h3>
+        <p>Your appointment has been successfully booked.</p>
+        <button id="backToBookingButton">Back to Booking Page</button>
+    </div>
+
+    <script>
+        // Get form and confirmation dialog elements
+        const appointmentForm = document.getElementById("appointmentForm");
+        const bookAppointmentButton = document.getElementById("bookAppointmentButton");
+        const confirmationDialog = document.getElementById("confirmationDialog");
+        const confirmButton = document.getElementById("confirmButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const overlay = document.getElementById("overlay");
+        const confirmDoctorName = document.getElementById("confirmDoctorName");
+        const confirmDate = document.getElementById("confirmDate");
+        const confirmTime = document.getElementById("confirmTime");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const dialogBox = document.getElementById("dialogBox");
+        const backToBookingButton = document.getElementById("backToBookingButton");
+
+        // Show confirmation dialog
+        bookAppointmentButton.addEventListener("click", function() {
+            const doctor = document.getElementById("doctor").value;
+            const date = document.getElementById("appointmentDate").value;
+            const time = document.getElementById("appointmentTime").value;
+
+            // Set confirmation dialog text
+            confirmDoctorName.textContent = doctor;
+            confirmDate.textContent = date;
+            confirmTime.textContent = time;
+
+            // Show the overlay and confirmation dialog
+            overlay.style.display = "block";
+            confirmationDialog.style.display = "block";
+        });
+
+        // Confirm the appointment
+        confirmButton.addEventListener("click", function() {
+            // Show loading spinner
+            loadingSpinner.style.display = "block";
+            bookAppointmentButton.style.display = "none";
+
+            // Simulate appointment booking and show success dialog after 2 seconds
+            setTimeout(function() {
+                confirmationDialog.style.display = "none";
+                dialogBox.style.display = "block";
+            }, 2000);
+        });
+
+        // Cancel the confirmation
+        cancelButton.addEventListener("click", function() {
+            // Close the confirmation dialog
+            confirmationDialog.style.display = "none";
+            overlay.style.display = "none";
+        });
+
+        // Go back to the booking page
+        backToBookingButton.addEventListener("click", function() {
+            // Reload the page to reset the form and show the booking page again
+            location.reload();
+        });
+    </script>
+
+</body>
+</html>

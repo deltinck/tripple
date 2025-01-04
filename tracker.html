@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Task Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .chart {
+            width: 48%;
+            max-width: 600px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Personal Task Tracker</h1>
+
+        <!-- Personal Task Categories Pie Chart Section -->
+        <div class="section">
+            <p class="section-title">Personal Work Wishlist Categories</p>
+
+            <!-- Pie Chart for Task Categories -->
+            <div class="charts-container">
+                <div class="chart">
+                    <canvas id="taskPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Task Completion Bar Chart Section -->
+        <div class="section">
+            <p class="section-title">Task Completion Percentage (Day-wise)</p>
+
+            <!-- Bar Chart for Daily Task Completion -->
+            <div class="charts-container">
+                <div class="chart">
+                    <canvas id="taskCompletionBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Table Section -->
+        <div class="section">
+            <p class="section-title">Task Details</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Work on Project</td>
+                        <td><span style="color:green;">Completed</span></td>
+                        <td>2025-01-10</td>
+                    </tr>
+                    <tr>
+                        <td>Buy Groceries</td>
+                        <td><span style="color:red;">Pending</span></td>
+                        <td>2025-01-15</td>
+                    </tr>
+                    <tr>
+                        <td>Plan Weekend Trip</td>
+                        <td><span style="color:green;">Completed</span></td>
+                        <td>2025-01-20</td>
+                    </tr>
+                    <tr>
+                        <td>Call Mom</td>
+                        <td><span style="color:red;">Pending</span></td>
+                        <td>2025-01-25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add Task Button -->
+        <button>Add New Task</button>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        // Pie Chart for Task Categories (Personal Work Wishlist)
+        var ctx1 = document.getElementById('taskPieChart').getContext('2d');
+        var taskPieChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['Work', 'Shopping', 'Personal', 'Health'], // Categories
+                datasets: [{
+                    data: [40, 20, 25, 15],  // Example: percentage for each category
+                    backgroundColor: ['#4CAF50', '#FF6347', '#FFC107', '#2196F3'], // Colors for each category
+                    hoverBackgroundColor: ['#45a049', '#FF4500', '#FFB300', '#1976D2']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ": " + tooltipItem.raw + "%";
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Bar Chart for Daily Task Completion Percentage
+        var ctx2 = document.getElementById('taskCompletionBarChart').getContext('2d');
+        var taskCompletionBarChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5'], // Days
+                datasets: [{
+                    label: 'Task Completion Percentage',
+                    data: [50, 70, 90, 60, 85], // Example: percentage of tasks completed each day
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#388E3C',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

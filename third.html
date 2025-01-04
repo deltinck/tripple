@@ -10,53 +10,83 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            scroll-behavior: smooth;
         }
 
         nav {
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* Arrange items in a row */
+            align-items: center; /* Vertically align the items */
             padding: 20px;
             background-color: #f8f8f8;
-            text-align: center;
             margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         nav a {
-            margin: 10px 0;
+            margin: 10px;
             padding: 20px;
             text-decoration: none;
             color: black;
-            background-color: #b38367;
+            background-color: #897085;
             border: 2px solid #ccc;
             border-radius: 5px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             width: 200px;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            transition: all 0.3s ease;
         }
 
         nav a:hover {
             background-color: #d3d3d3;
             border-color: #999;
+            transform: translateY(-5px);
+        }
+
+        nav img {
+            width: 60px; /* Adjust width as needed */
+            height: 60px; /* Adjust height as needed */
+            margin-left: 20px; /* Space between the nav links and the image */
+        }
+
+        .vision-section {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d), url('elderly-image.jpg') no-repeat center center/cover;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .vision-section h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .vision-section p {
+            font-size: 1.5em;
+            line-height: 1.6;
         }
 
         main {
             padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         main section {
             text-align: left;
-            margin-left: 50px;
             margin-bottom: 30px;
         }
 
         h2 {
-            font-size: 2em;
+            font-size: 2.5em;
+            color: #afd197 ;
+            margin-bottom: 15px;
         }
 
         p {
-            font-size: 1.3em;
+            font-size: 1.4em;
             line-height: 1.6;
         }
 
@@ -65,23 +95,26 @@
             color: white;
             text-align: center;
             padding: 10px;
-            position: relative;
             width: 100%;
+            margin-top: 40px;
         }
 
         .button {
             font-size: 1.5em;
             padding: 15px 30px;
-            background-color: #4CAF50;
+            background-color:#974cafd1;
             color: white;
             border: none;
             cursor: pointer;
             text-decoration: none;
             border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
 
         .button:hover {
-            background-color: #45a049;
+            background-color: #108d2f;
+            transform: translateY(-3px);
         }
 
         @media (max-width: 768px) {
@@ -93,10 +126,24 @@
                 width: 100%;
                 margin: 10px 0;
             }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <h1>Our Vision</h1>
+        <p>Empowering seniors to live healthy, independent, and fulfilling lives by providing accessible resources and support for every stage of their journey.</p>
+    </section>
 
     <nav>
         <a href="#health">Health</a>
@@ -105,13 +152,14 @@
         <a href="#contact">Contact</a>
         <a href="#dailyroutines">Daily Routines</a>
         <a href="#appointment">Appointment</a>
+        
     </nav>
-
+    <img src="https://s7d6.scene7.com/is/image/questdiagnostics/iStock-1416475559" alt="Elderly Care" width="100%" height="100%">
     <main>
         <section id="health">
             <h2>Health & Wellness</h2>
             <p>Find useful health tips, healthcare providers, and wellness resources designed for elderly individuals. Learn how to stay healthy and active in your golden years!</p>
-            <a href="https://www.healthinaging.org" class="button">Explore Health Tips</a>
+            <a href="health.html" class="button">Patient Health Information</a>
         </section>
 
         <section id="care">
@@ -135,13 +183,13 @@
         <section id="dailyroutines">
             <h2>Daily Routines</h2>
             <p>Establish a balanced daily routine for a healthy lifestyle. From exercise to mindfulness practices, we provide tips and resources to stay on track.</p>
-            <a href="https://www.dailyhealthtips.com" class="button">Learn More</a>
+            <a href="routine.html" class="button">Learn More</a>
         </section>
 
         <section id="appointment">
             <h2>Appointment Scheduling</h2>
             <p>Book your appointments for health check-ups, care services, and more. Stay organized and ensure you never miss an important date.</p>
-            <a href="https://www.appointment-booking.com" class="button">Schedule Now</a>
+            <a href="appointment.html" class="button">Schedule Now</a>
         </section>
     </main>
 

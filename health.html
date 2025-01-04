@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Health Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Custom Dialog Box */
+        .dialog-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+
+        .dialog-box button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .dialog-box button:hover {
+            background-color: #45a049;
+        }
+
+        /* Overlay Background */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Patient Health Information</h1>
+
+        <!-- Personal Information Section -->
+        <div class="section">
+            <h2>Personal Information</h2>
+            <div class="form-group">
+                <label for="patientName">Patient Name:</label>
+                <input type="text" id="patientName" name="patientName" placeholder="Enter patient's name">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" placeholder="Enter age">
+            </div>
+            <div class="form-group">
+                <label for="doctorName">Doctor's Name:</label>
+                <input type="text" id="doctorName" name="doctorName" placeholder="Enter doctor's name">
+            </div>
+        </div>
+
+        <!-- Medicine Information Section -->
+        <div class="section">
+            <h2>Medicine Information</h2>
+            <div class="form-group">
+                <label for="medicineTimeTaken">Medicine Time Taken:</label>
+                <input type="text" id="medicineTimeTaken" name="medicineTimeTaken" placeholder="Enter time of day (e.g. Morning, Evening)">
+            </div>
+            <div class="form-group">
+                <label for="medicineInstructions">Medicine Instructions:</label>
+                <textarea id="medicineInstructions" name="medicineInstructions" rows="4" placeholder="Enter medicine instructions (e.g., take after meals)"></textarea>
+            </div>
+        </div>
+
+        <!-- Current Medicine Section -->
+        <div class="section">
+            <h2>Current Medicines</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Dosage</th>
+                        <th>Frequency</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lisinopril</td>
+                        <td>10mg</td>
+                        <td>Once a day</td>
+                        <td>2023-01-10</td>
+                        <td>Ongoing</td>
+                    </tr>
+                    <tr>
+                        <td>Ibuprofen</td>
+                        <td>200mg</td>
+                        <td>Twice a day</td>
+                        <td>2023-06-20</td>
+                        <td>Ongoing</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Patient's Illnesses Section -->
+        <div class="section">
+            <h2>Patient's Illnesses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Illness Name</th>
+                        <th>Diagnosis Date</th>
+                        <th>Treating Doctor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hypertension</td>
+                        <td>2022-03-15</td>
+                        <td>Dr. John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>Arthritis</td>
+                        <td>2023-06-10</td>
+                        <td>Dr. Emily Smith</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Save Button -->
+        <div class="section">
+            <button type="button" id="saveButton">Save Information</button>
+        </div>
+
+    </div>
+
+    <!-- Dialog Box & Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <div class="dialog-box" id="dialogBox">
+        <p>Information has been saved successfully!</p>
+        <button id="closeDialogButton">OK</button>
+    </div>
+
+    <script>
+        document.getElementById("saveButton").addEventListener("click", function() {
+            // Show dialog box and overlay
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("dialogBox").style.display = "block";
+        });
+
+        document.getElementById("closeDialogButton").addEventListener("click", function() {
+            // Hide dialog box and overlay when 'OK' is clicked
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("dialogBox").style.display = "none";
+        });
+    </script>
+
+</body>
+</html>

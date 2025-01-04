@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SageCare - Logo with Grandpa and Grandma</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f8ff; /* Soft light blue background for a cozy look */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 38px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+        }
+
+        .logo:hover {
+            transform: scale(1.1); /* Slight scale on hover */
+        }
+
+        .logo .human-icons {
+            font-size: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        /* Grandfather and Grandmother emojis */
+        .logo .human-icons span {
+            margin: 0 10px;
+        }
+
+        .logo .text {
+            font-size: 52px;
+            color: #3e4c59; /* Soft dark blue for readability */
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover .text {
+            color: #4CAF50;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-top: 15px;
+            font-style: italic;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover + .tagline {
+            transform: scale(1.05);
+            color: #333;
+        }
+
+        /* Heart icon to symbolize care and love */
+        .heart {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 30px;
+            color: #ff69b4; /* A pink color to represent care and affection */
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animation for the heart */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Adding responsive design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 32px;
+            }
+
+            .human-icons {
+                font-size: 45px;
+            }
+
+            .text {
+                font-size: 45px;
+            }
+
+            .tagline {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo with a warm human-centered design -->
+    <div class="logo">
+        <div class="human-icons">
+            <span>👵</span> <!-- Grandmother Emoji -->
+            <span>👴</span> <!-- Grandfather Emoji -->
+        </div>
+        <div class="text">SageCare</div>
+        <!-- Heart icon symbolizing care and love -->
+        <div class="heart">❤️</div>
+    </div>
+
+    <!-- Tagline representing care and family -->
+    <div class="tagline">
+        "Caring with Wisdom, Loving with Heart"
+    </div>
+
+</body>
+</html>
