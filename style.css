@@ -1,0 +1,89 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a82fb, #fc5c7d), url(elderly-image.jpg) no-repeat center center / cover;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Container for the login form */
+  .login {
+    background-color: white;
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  
+  h1 {
+    color:linear-gradient(135deg, #6a82fb, #fc5c7d), url(elderly-image.jpg) no-repeat center center / cover;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  /* Label styling */
+  label {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  /* Input fields */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+  }
+  
+  /* Focus effect on input fields */
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #4CAF50;
+    background-color: #fff;
+    outline: none;
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(242, 71, 185);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover and active states for the button */
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Error message styling */
+  #error-message {
+    font-size: 1rem;
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+  }
+  

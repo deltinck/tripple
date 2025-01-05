@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SageCare - Services</title>
+
+    <!-- Add Font Awesome for Microphone Icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,8 +19,8 @@
 
         nav {
             display: flex;
-            flex-direction: row; /* Arrange items in a row */
-            align-items: center; /* Vertically align the items */
+            flex-direction: row;
+            align-items: center;
             padding: 20px;
             background-color: #f8f8f8;
             margin-bottom: 20px;
@@ -44,9 +48,9 @@
         }
 
         nav img {
-            width: 60px; /* Adjust width as needed */
-            height: 60px; /* Adjust height as needed */
-            margin-left: 20px; /* Space between the nav links and the image */
+            width: 60px;
+            height: 60px;
+            margin-left: 20px;
         }
 
         .vision-section {
@@ -135,6 +139,85 @@
                 font-size: 1.2em;
             }
         }
+
+        /* Chatbot Icon Styling */
+        #toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #toggle-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Chatbot iframe container */
+        #chatbot-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            display: none; /* Initially hidden */
+            z-index: 1000;
+        }
+
+        #chatbot-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* Close Button */
+        #close-btn {
+            display: inline-block;
+            background-color: #ff6347;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        #close-btn:hover {
+            background-color: #e55347;
+        }
+
+        /* Microphone Button Styling */
+        .mic-btn-container {
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
+        }
+
+        .mic-btn {
+            font-size: 30px;
+            color: #4CAF50;
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mic-btn:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -147,45 +230,32 @@
 
     <nav>
         <a href="#health">Health</a>
-        <a href="#care">Care Services</a>
-        <a href="#community">Community</a>
         <a href="#contact">Contact</a>
         <a href="#dailyroutines">Daily Routines</a>
         <a href="#appointment">Appointment</a>
-        
+        <a href="#brain-boosters">Brain Boosters</a>
+        <a href="#playtowin">Play to Win</a>
     </nav>
+
     <img src="https://s7d6.scene7.com/is/image/questdiagnostics/iStock-1416475559" alt="Elderly Care" width="100%" height="100%">
+
     <main>
-       
-
-        <section id="care">
-            <h2>Chatbot</h2>
-            <p>Discover senior care services including home care, assisted living, and support for caregivers. We help you find the right resources for your needs.</p>
-            <a href="https://www.agingcare.com" class="button">Find Care Services</a>
-        </section>
-
         <section id="health">
             <h2>Health & Wellness</h2>
             <p>Find useful health tips, healthcare providers, and wellness resources designed for elderly individuals. Learn how to stay healthy and active in your golden years!</p>
             <a href="health.html" class="button">Patient Health Information</a>
         </section>
 
-        <section id="community">
-            <h2>Community Support</h2>
-            <p>Connect with others in your community. Access social groups, local events, and peer support programs for seniors.</p>
-            <a href="https://www.seniornet.org" class="button">Join the Community</a>
-        </section>
-
         <section id="contact">
             <h2>Contact Us</h2>
             <p>If you need assistance or have questions, we're here to help. Reach out to our support team at any time.</p>
-            <a href="mailto:support@example.com" class="button">Contact Support</a>
+            <a href="info.html" class="button">Contact Support</a>
         </section>
 
         <section id="dailyroutines">
             <h2>Daily Routines</h2>
             <p>Establish a balanced daily routine for a healthy lifestyle. From exercise to mindfulness practices, we provide tips and resources to stay on track.</p>
-            <a href="routine.html" class="button">Learn More</a>
+            <a href="abc.html" class="button">Learn More</a>
         </section>
 
         <section id="appointment">
@@ -193,11 +263,78 @@
             <p>Book your appointments for health check-ups, care services, and more. Stay organized and ensure you never miss an important date.</p>
             <a href="appointment.html" class="button">Schedule Now</a>
         </section>
+
+        
+
+        <section id="brain-boosters">
+            <h2>Brain Boosters</h2>
+            <p>"Challenge your mind, boost your brain, and unlock endless potential!"</p>
+            <a href="game.html" class="button">Let's Enjoy</a>
+        </section>
+
+        <section id="play to win">
+            <h2>Play To Win</h2>
+            <p>"Where Fun Meets Wellness."</p>
+            <a href="win.html" class="button">Let's Enjoy</a>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Elderly Assistance Portal. All rights reserved.</p>
     </footer>
+
+    <!-- Chatbot Icon -->
+    <div id="toggle-btn" onclick="toggleChatbot()">💬</div>
+
+    <!-- Chatbot iframe container -->
+    <div id="chatbot-container">
+        <iframe
+            src="https://www.chatbase.co/chatbot-iframe/Qucvhwz-VTOK-VmNrkXCN"
+            width="100%"
+            style="height: 100%; min-height: 400px"
+            frameborder="0"
+        ></iframe>
+        <div id="close-btn" onclick="toggleChatbot()">Close</div>
+    </div>
+
+    <!-- Microphone Button -->
+    <div class="mic-btn-container">
+        <button class="mic-btn" onclick="startListening()">
+            <i class="fas fa-microphone"></i> <!-- Microphone Icon -->
+        </button>
+    </div>
+
+    <script>
+        // Speech Recognition and Assistant Logic
+        const micBtn = document.querySelector('.mic-btn');
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.onresult = (event) => {
+            const currentIndex = event.resultIndex;
+            const transcript = event.results[currentIndex][0].transcript;
+            alert('You said: ' + transcript); // For demonstration
+        };
+
+        recognition.onstart = () => {
+            alert("Listening...");
+        };
+
+        recognition.onerror = (event) => {
+            alert("Error occurred. Please try again.");
+        };
+
+        function startListening() {
+            recognition.start(); // Start listening
+        }
+
+        // Toggle Chatbot
+        function toggleChatbot() {
+            const chatbotContainer = document.getElementById("chatbot-container");
+            const currentDisplay = chatbotContainer.style.display;
+            chatbotContainer.style.display = currentDisplay === "none" || currentDisplay === "" ? "block" : "none";
+        }
+    </script>
 
 </body>
 </html>

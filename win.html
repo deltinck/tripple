@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamification for Elderly Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .game-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            display: inline-block;
+            width: 45%;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+        .game-card h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .scoreboard {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px;
+        }
+        .score {
+            font-size: 24px;
+            color: #FF4500;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        .back-button {
+            background-color: #FF6347;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Gamification for Elderly Care</h1>
+        <p>Engage your brain with these fun challenges and track your progress!</p>
+    </div>
+
+    <div class="scoreboard">
+        <span>Score: <span id="score" class="score">0</span></span>
+        <span> | Level: <span id="level">1</span></span>
+    </div>
+
+    <div class="container">
+        <!-- Memory Challenge Card -->
+        <div class="game-card" id="memoryChallenge">
+            <h3>Memory Challenge</h3>
+            <p>Can you remember the sequence?</p>
+            <button class="button" onclick="startMemoryGame()">Start Game</button>
+            <div id="memoryResult" class="hidden"></div>
+        </div>
+
+        <!-- Math Challenge Card -->
+        <div class="game-card" id="mathChallenge">
+            <h3>Math Challenge</h3>
+            <p>Solve this math puzzle!</p>
+            <button class="button" onclick="startMathGame()">Start Game</button>
+            <div id="mathResult" class="hidden"></div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div id="backButtonContainer" class="hidden">
+        <button class="back-button" onclick="goBack()">Back to Main Menu</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let level = 1;
+
+        // Memory Game Variables
+        let sequenceLength = 3;
+        let sequence = [];
+        let userInput = '';
+        
+        // Math Game Variables
+        let num1, num2, correctAnswer;
+
+        // Function to update score and level
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = level;
+        }
+
+        // Memory Challenge Logic
+        function generateMemorySequence() {
+            sequence = [];
+            for (let i = 0; i < sequenceLength; i++) {
+                sequence.push(Math.floor(Math.random() * 9) + 1); // Random number between 1 and 9
+            }
+        }
+
+        function startMemoryGame() {
+            generateMemorySequence();
+            document.getElementById('memoryResult').classList.add('hidden');
+            const sequenceDisplay = document.createElement('div');
+            sequenceDisplay.textContent = sequence.join(' ');
+            document.getElementById('memoryChallenge').appendChild(sequenceDisplay);
+            
+            setTimeout(() => {
+                sequenceDisplay.classList.add('hidden');
+                document.getElementById('memoryResult').classList.remove('hidden');
+                const inputBox = document.createElement('input');
+                inputBox.type = 'text';
+                inputBox.placeholder = 'Enter the sequence';
+                document.getElementById('memoryResult').appendChild(inputBox);
+                const submitButton = document.createElement('button');
+                submitButton.textContent = 'Submit';
+                submitButton.onclick = () => checkMemorySequence(inputBox.value);
+                document.getElementById('memoryResult').appendChild(submitButton);
+            }, 3000);
+        }
+
+        function checkMemorySequence(input) {
+            if (input === sequence.join('')) {
+                score += 10;
+                level++;
+                alert("Correct! You earned 10 points!");
+            } else {
+                alert("Incorrect, try again.");
+            }
+            updateScore();
+            resetMemoryGame();
+        }
+
+        function resetMemoryGame() {
+            document.getElementById('memoryResult').innerHTML = '';
+            sequenceLength = Math.min(sequenceLength + 1, 5); // Increase difficulty
+            showBackButton();
+        }
+
+        // Math Challenge Logic
+        function startMathGame() {
+            num1 = Math.floor(Math.random() * 9) + 1;
+            num2 = Math.floor(Math.random() * 9) + 1;
+            correctAnswer = num1 + num2;
+            const mathProblem = `What is ${num1} + ${num2}?`; // Corrected template literal
+
+            const mathResultBox = document.getElementById('mathResult');
+            mathResultBox.classList.remove('hidden');
+            mathResultBox.innerHTML = `<p>${mathProblem}</p>`; // Corrected template literal
+
+            const inputBox = document.createElement('input');
+            inputBox.type = 'number';
+            mathResultBox.appendChild(inputBox);
+            const submitButton = document.createElement('button');
+            submitButton.textContent = 'Submit';
+            submitButton.onclick = () => checkMathAnswer(inputBox.value);
+            mathResultBox.appendChild(submitButton);
+        }
+
+        function checkMathAnswer(input) {
+            if (parseInt(input) === correctAnswer) {
+                score += 10;
+                level++;
+                alert("Correct! You earned 10 points!");
+            } else {
+                alert("Incorrect, try again.");
+            }
+            updateScore();
+            resetMathGame();
+        }
+
+        function resetMathGame() {
+            document.getElementById('mathResult').innerHTML = '';
+            showBackButton();
+        }
+
+        function showBackButton() {
+            // Show the back button after a game is completed
+            document.getElementById('backButtonContainer').classList.remove('hidden');
+            // Hide the game cards
+            document.getElementById('memoryChallenge').classList.add('hidden');
+            document.getElementById('mathChallenge').classList.add('hidden');
+        }
+
+        function goBack() {
+            // Reset game and hide back button
+            score = 0;
+            level = 1;
+            updateScore();
+            document.getElementById('backButtonContainer').classList.add('hidden');
+            document.getElementById('memoryChallenge').classList.remove('hidden');
+            document.getElementById('mathChallenge').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>

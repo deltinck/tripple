@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .error-message {
+      color: #ff6347;
+      font-size: 14px;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="return loginValidation(event)">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <div class="error-message" id="loginEmailError"></div>
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <div class="error-message" id="loginPasswordError"></div>
+      <input type="submit" value="Login" />
+    </form>
+  </div>
+
+  <script>
+    // Validation function
+    function loginValidation(event) {
+      event.preventDefault();  // Prevent form submission
+
+      let isValid = true;
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const emailError = document.getElementById("loginEmailError");
+      const passwordError = document.getElementById("loginPasswordError");
+
+      // Clear previous error messages
+      emailError.textContent = "";
+      passwordError.textContent = "";
+
+      // Validation
+      if (!email) {
+        emailError.textContent = "Email is required";
+        isValid = false;
+      }
+
+      if (!password) {
+        passwordError.textContent = "Password is required";
+        isValid = false;
+      }
+
+      // If valid, send the user to the second website (Website 2)
+      if (isValid) {
+        window.location.href = "http://127.0.0.1:5500/third.html;  // Redirect to Website 2 after successful login
+      }
+
+      return isValid;
+    }
+  </script>
+</body>
+</html>

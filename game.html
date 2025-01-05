@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Boost Games</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background:  linear-gradient(135deg, #6a82fb, #fc5c7d), url('elderly-image.jpg') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+        header {
+            background-color: #0a660e;
+            color: white;
+            padding: 20px;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #f9f9f9;
+        }
+        .button {
+            background-color: #0a660e;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            margin: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 50px;
+            width: 250px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button:hover {
+            background-color:#0a660e;
+            transform: scale(1.05);
+        }
+        #game-area {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .card, .image-box, .option-btn {
+            border: 2px solid #0a660e;
+            border-radius: 20px;
+            margin: 10px;
+            padding: 30px;
+            cursor: pointer;
+            font-size: 24px;
+            text-align: center;
+            display: inline-block;
+            background-color: #f9f9f9;
+            transition: transform 0.3s ease;
+        }
+        .card {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            font-size: 30px;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .image-box {
+            width: 150px;
+            height: 150px;
+            background-color: #f2f2f2;
+        }
+        .option-btn {
+            width: 150px;
+            font-size: 20px;
+            background-color:#0a660e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .option-btn:hover {
+            background-color:#0a660e;
+            transform: scale(1.05);
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Memory Boost Games</h1>
+    <p>Engage in fun and simple memory games to help boost cognitive skills.</p>
+</header>
+
+<div>
+    <button class="button" id="start-memory-match">Start Memory Match Game</button>
+    <button class="button" id="start-number-memory">Start Number Memory Game</button>
+    <button class="button" id="start-word-scramble">Start Word Scramble</button>
+</div>
+
+<div id="game-area"></div>
+
+<script>
+    // Memory Match Game
+    document.getElementById('start-memory-match').addEventListener('click', startMemoryMatch);
+
+    function startMemoryMatch() {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = '';
+
+        const values = ['🍎', '🍌', '🍒', '🍉', '🍊', '🍓'];
+        let cards = [...values, ...values]; // Duplicate values for matching
+
+        // Shuffle cards
+        cards = shuffle(cards);
+
+        cards.forEach(value => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.value = value;
+            card.textContent = ''; // Hidden initially
+            card.addEventListener('click', () => flipCard(card));
+            gameArea.appendChild(card);
+        });
+
+        let flippedCards = [];
+        let matchedCards = 0;
+
+        function flipCard(card) {
+            if (flippedCards.length === 2 || card.classList.contains('flipped')) return;
+            card.textContent = card.dataset.value;
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                if (flippedCards[0].dataset.value === flippedCards[1].dataset.value) {
+                    matchedCards += 2;
+                    flippedCards = [];
+                    if (matchedCards === cards.length) {
+                        setTimeout(() => alert('You won!'), 500);
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedCards.forEach(card => {
+                            card.classList.remove('flipped');
+                            card.textContent = '';
+                        });
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    }
+
+    // Number Memory Game (Second Game)
+    document.getElementById('start-number-memory').addEventListener('click', startNumberMemory);
+
+    function startNumberMemory() {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = '';
+
+        const sequence = generateRandomSequence(5);
+        let userInput = [];
+        let attempts = 0;
+
+        const sequenceBox = document.createElement('div');
+        sequenceBox.textContent = `Memorize this sequence: ${sequence.join(' ')}`; // Fixed string interpolation
+        sequenceBox.style.fontSize = '30px';
+        gameArea.appendChild(sequenceBox);
+
+        setTimeout(() => {
+            sequenceBox.style.display = 'none';
+            promptForSequence();
+        }, 3000); // Show sequence for 3 seconds
+
+        function promptForSequence() {
+            const inputBox = document.createElement('input');
+            inputBox.type = 'number';
+            inputBox.placeholder = 'Enter number';
+            inputBox.addEventListener('input', () => {
+                if (inputBox.value) {
+                    userInput.push(inputBox.value);
+                    if (userInput.length === sequence.length) {
+                        checkSequence();
+                    }
+                }
+            });
+            gameArea.appendChild(inputBox);
+        }
+
+        function checkSequence() {
+            if (userInput.join(' ') === sequence.join(' ')) {
+                alert('You matched the sequence!');
+            } else {
+                alert('Oops! Try again.');
+            }
+        }
+
+        function generateRandomSequence(length) {
+            const sequence = [];
+            for (let i = 0; i < length; i++) {
+                sequence.push(Math.floor(Math.random() * 10));
+            }
+            return sequence;
+        }
+    }
+
+    // Word Scramble Game (Third Game)
+    document.getElementById('start-word-scramble').addEventListener('click', startWordScramble);
+
+    function startWordScramble() {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = '';
+
+        const words = ['javascript', 'memory', 'function', 'algorithm', 'web'];
+        const word = words[Math.floor(Math.random() * words.length)];
+        const scrambledWord = scrambleWord(word);
+
+        const wordBox = document.createElement('div');
+        wordBox.textContent = `Unscramble this word: ${scrambledWord}`; // Fixed string interpolation
+        wordBox.style.fontSize = '30px';
+        gameArea.appendChild(wordBox);
+
+        const inputBox = document.createElement('input');
+        inputBox.placeholder = 'Enter your guess';
+        inputBox.addEventListener('input', () => {
+            if (inputBox.value === word) {
+                alert('Correct! You unscrambled the word!');
+            }
+        });
+        gameArea.appendChild(inputBox);
+
+        function scrambleWord(word) {
+            const scrambled = word.split('').sort(() => Math.random() - 0.5).join('');
+            return scrambled;
+        }
+    }
+</script>
+
+</body>
+</html>

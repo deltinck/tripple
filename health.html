@@ -154,19 +154,32 @@
         <div class="section">
             <h2>Medicine Information</h2>
             <div class="form-group">
-                <label for="medicineTimeTaken">Medicine Time Taken:</label>
-                <input type="text" id="medicineTimeTaken" name="medicineTimeTaken" placeholder="Enter time of day (e.g. Morning, Evening)">
+                <label for="medicineName">Medicine Name:</label>
+                <input type="text" id="medicineName" name="medicineName" placeholder="Enter medicine name">
             </div>
             <div class="form-group">
-                <label for="medicineInstructions">Medicine Instructions:</label>
-                <textarea id="medicineInstructions" name="medicineInstructions" rows="4" placeholder="Enter medicine instructions (e.g., take after meals)"></textarea>
+                <label for="medicineDosage">Dosage:</label>
+                <input type="text" id="medicineDosage" name="medicineDosage" placeholder="Enter dosage">
             </div>
+            <div class="form-group">
+                <label for="medicineFrequency">Frequency:</label>
+                <input type="text" id="medicineFrequency" name="medicineFrequency" placeholder="Enter frequency (e.g., Once a day)">
+            </div>
+            <div class="form-group">
+                <label for="medicineStartDate">Start Date:</label>
+                <input type="date" id="medicineStartDate" name="medicineStartDate">
+            </div>
+            <div class="form-group">
+                <label for="medicineEndDate">End Date:</label>
+                <input type="date" id="medicineEndDate" name="medicineEndDate">
+            </div>
+            <button type="button" id="addMedicineButton">Add Medicine</button>
         </div>
 
         <!-- Current Medicine Section -->
         <div class="section">
             <h2>Current Medicines</h2>
-            <table>
+            <table id="medicineTable">
                 <thead>
                     <tr>
                         <th>Medicine Name</th>
@@ -177,46 +190,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Lisinopril</td>
-                        <td>10mg</td>
-                        <td>Once a day</td>
-                        <td>2023-01-10</td>
-                        <td>Ongoing</td>
-                    </tr>
-                    <tr>
-                        <td>Ibuprofen</td>
-                        <td>200mg</td>
-                        <td>Twice a day</td>
-                        <td>2023-06-20</td>
-                        <td>Ongoing</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Patient's Illnesses Section -->
-        <div class="section">
-            <h2>Patient's Illnesses</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Illness Name</th>
-                        <th>Diagnosis Date</th>
-                        <th>Treating Doctor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Hypertension</td>
-                        <td>2022-03-15</td>
-                        <td>Dr. John Doe</td>
-                    </tr>
-                    <tr>
-                        <td>Arthritis</td>
-                        <td>2023-06-10</td>
-                        <td>Dr. Emily Smith</td>
-                    </tr>
+                    <!-- Medicine details will be added here -->
                 </tbody>
             </table>
         </div>
@@ -236,14 +210,46 @@
     </div>
 
     <script>
+        // Medicine Table Update and Add Functionality
+        document.getElementById("addMedicineButton").addEventListener("click", function() {
+            // Get input values
+            var medicineName = document.getElementById("medicineName").value;
+            var medicineDosage = document.getElementById("medicineDosage").value;
+            var medicineFrequency = document.getElementById("medicineFrequency").value;
+            var medicineStartDate = document.getElementById("medicineStartDate").value;
+            var medicineEndDate = document.getElementById("medicineEndDate").value;
+
+            // Check if all fields are filled before adding to the table
+            if (medicineName && medicineDosage && medicineFrequency && medicineStartDate && medicineEndDate) {
+                // Create a new row in the table
+                var table = document.getElementById("medicineTable").getElementsByTagName('tbody')[0];
+                var newRow = table.insertRow();
+
+                // Insert cells and populate with values
+                newRow.insertCell(0).innerText = medicineName;
+                newRow.insertCell(1).innerText = medicineDosage;
+                newRow.insertCell(2).innerText = medicineFrequency;
+                newRow.insertCell(3).innerText = medicineStartDate;
+                newRow.insertCell(4).innerText = medicineEndDate;
+
+                // Clear input fields after adding medicine
+                document.getElementById("medicineName").value = '';
+                document.getElementById("medicineDosage").value = '';
+                document.getElementById("medicineFrequency").value = '';
+                document.getElementById("medicineStartDate").value = '';
+                document.getElementById("medicineEndDate").value = '';
+            } else {
+                alert("Please fill in all the fields before adding the medicine.");
+            }
+        });
+
+        // Dialog box functionality
         document.getElementById("saveButton").addEventListener("click", function() {
-            // Show dialog box and overlay
             document.getElementById("overlay").style.display = "block";
             document.getElementById("dialogBox").style.display = "block";
         });
 
         document.getElementById("closeDialogButton").addEventListener("click", function() {
-            // Hide dialog box and overlay when 'OK' is clicked
             document.getElementById("overlay").style.display = "none";
             document.getElementById("dialogBox").style.display = "none";
         });

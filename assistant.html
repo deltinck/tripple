@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: none; /* Hide by default */
+        }
+
+        .content {
+            font-size: 10px;
+            color: #333;
+            min-height: 30px;
+            margin-top: 10px;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
+        .mic-btn {
+            font-size: 30px;
+            color: #4CAF50;
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mic-btn:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.1);
+        }
+
+        .mic-btn-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for Voice Assistant (Hidden initially) -->
+    <div class="container">
+        <h1>Voice Assistant</h1>
+        <p class="content">Press the mic icon and speak to your assistant...</p>
+    </div>
+
+    <!-- Microphone Icon Button -->
+    <div class="mic-btn-container">
+        <button class="mic-btn">
+            <i class="fas fa-microphone"></i>
+        </button>
+    </div>
+
+    <script>
+        const btn = document.querySelector('.mic-btn');
+        const container = document.querySelector('.container');
+        const content = document.querySelector('.content');
+
+        // Function to speak the text out loud
+        function speak(text) {
+            const text_speak = new SpeechSynthesisUtterance(text);
+            text_speak.rate = 1;
+            text_speak.volume = 1;
+            text_speak.pitch = 1;
+            window.speechSynthesis.speak(text_speak);
+        }
+
+        // SpeechRecognition setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.onresult = (event) => {
+            const currentIndex = event.resultIndex;
+            const transcript = event.results[currentIndex][0].transcript;
+            content.textContent = transcript;
+            takeCommand(transcript.toLowerCase());
+        };
+
+        recognition.onstart = () => {
+            content.textContent = "Listening...";
+        };
+
+        recognition.onerror = (event) => {
+            content.textContent = "Sorry, I couldn't understand. Please try again.";
+            speak("Sorry, I couldn't understand. Please try again.");
+        };
+
+        // Show container and start recognition when mic button is pressed
+        btn.addEventListener('click', () => {
+            container.style.display = 'block'; // Show the container
+            recognition.start(); // Start listening
+        });
+
+        // Function to take action based on the user's voice command
+        function takeCommand(message) {
+            if (message.includes('hello')) {
+                speak("Hello Sir, How may I help you?");
+            } else if (message.includes("open google")) {
+                window.open("https://google.com", "_blank");
+                speak("Opening Google...");
+            } else if (message.includes('time')) {
+                const time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
+                speak(`The time is ${time}`);
+            } else {
+                speak(`I found some information about ${message} on Google.`);
+                window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
+            }
+        }
+
+        // Stop recognition and hide the container after the user stops speaking
+        recognition.onspeechend = () => {
+            recognition.stop();
+            setTimeout(() => {
+                container.style.display = 'none'; // Hide the container
+            }, 2000); // Delay before hiding the container
+        };
+    </script>
+</body>
+</html>
